@@ -26,7 +26,6 @@ if __name__ == '__main__':
 	
 	# Checking the records
 	cursor.execute("SELECT * FROM mytablename")
-	project_records = cursor.fetchall()
-	print(project_records)
+	print(cursor.fetchall())
 
 	
