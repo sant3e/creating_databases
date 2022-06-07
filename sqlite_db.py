@@ -16,6 +16,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS mytablename
 connection.commit()
 connection.close()
 
+# when you create the table, it would be best to have an autoincrementing primary key id
+# use this for col1 type1 : id INTEGER PRIMARY KEY AUTOINCREMENT
 
 -------------------------
 ## Additional commands (place them between curosr and connection.comit()
