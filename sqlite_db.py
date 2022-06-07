@@ -17,6 +17,8 @@ connection.close()
 
 -------------------------
 ## Additional commands (place them between curosr and connection.comit()
+## Most commands must be run only once (so cursor + code + commit&close, save file and run)
+## e.g. if you run insert multiple times, you'll just get duplicates (to automate you could use an if already exists)
 
 # Insert (manual) values into table (text and data need ' ' )
  cursor.execute("INSERT INTO mytablename VALUES ('Value1', 'Value2', 'Value3')")
@@ -34,12 +36,11 @@ cursor.executemany('Insert INTO mytablename VALUES (?,?,?)', variablename)
 # b) iterate through every row
 # c) fetch all results at once
 cursor.execute("SELECT * FROM mytablename")
-print(cursor.fetchone())    # a)
-  
-# Checking values alternative
+print(cursor.fetchone())    # fetches a single row
+print(cursor.fetchall())    # fetches all rows
+
 records = cursor.execute("SELECT * FROM Movies")
-print(cursor.fetchall())
 for record in records:
   print(record)
-# fetches a single row
-cursor.fetchone()
+
+
