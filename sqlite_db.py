@@ -28,12 +28,18 @@ variablename = [('Value11', 'Value12', 'Value13'),
                 ('Value31', 'Value32', 'Value33')]
 cursor.executemany('Insert INTO mytablename VALUES (?,?,?)', variablename)
   
-# Cheking values
+## Cheking values
+# we have multiple ways:
+# a) fetch a single row
+# b) iterate through every row
+# c) fetch all results at once
 cursor.execute("SELECT * FROM mytablename")
+print(cursor.fetchone())    # a)
   
 # Checking values alternative
 records = cursor.execute("SELECT * FROM Movies")
 print(cursor.fetchall())
 for record in records:
   print(record)
+# fetches a single row
 cursor.fetchone()
