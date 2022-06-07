@@ -9,6 +9,7 @@
 # this code just connects to an already existant db (assume we created it in GUi which is easier)
 import mysql.connector as mysql
 
+# connection to DB configuration using a function
 def connect(db_name):
 	try:
 		return mysql.connect(
@@ -18,6 +19,19 @@ def connect(db_name):
 			database=db_name)
 	except Error as e:
 		print(e)
+
+# (manual) adding new records using a function
+def add_new_values():
+	table_data_single_entry = ('Value1', 'Value2', ... )   
+	cursor.execute("INSERT INTO mytablename(col1, col2, ...) VALUES (%s, %s, ...)", table_data_single_entry)
+	
+	table_data_multiple_entries = [('Value11', 'Value12',...),('Value21', 'Value22', ...),...]   # a list of multiple tuples
+	cursor.executemany("INSERT into mytablename(col1, col2, ...) VALUES (%s, %s, ...)", table_data_multiple_entries)
+	
+	## if we work with multiple tables and we want to take the id for a record from one table to another
+	id = cursor.xxxx    # don't have the code for this yet, i need to pull the id values from another table
+	table_data_multiple_entries = [(id, 'Value12', 'Value13',...),(id, 'Value22', 'Value23', ...),...]   # a list of multiple tuples
+	cursor.executemany("INSERT into mytablename(col1, col2, ...) VALUES (%s, %s, ...)", table_data_multiple_entries)
 
 if __name__ == '__main__':
 	db = connect("mydbname")
@@ -29,3 +43,6 @@ if __name__ == '__main__':
 	print(cursor.fetchall())
 
 	
+# (if we intended to to create the table within python) for the primary key we need: table1_id INT(n) NOT NULL AUTO_INCREMENT, col2 type2, col3 type3, ..., PRIMARY KEY(table1_id)
+# (if we intended to to create the table within python) for the primary key we need: table2_id INT(n) NOT NULL AUTO_INCREMENT, table1_id INT(n), col3 type4, 
+# , col4 type4, ..., FOREIGN KEY(table2_id) REFERENCES mytable1name(table1_id)
