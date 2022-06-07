@@ -1,8 +1,10 @@
 # sqlite is a simple local DB
-# connecting to a local DB & creating a table
+# connecting/creating to/a local sqlite database
 
 import sqlite3
 
+# if DB exists, it connects to it;
+# if DB doesn't exist, it will be created
 connection = sqlite3.connect('mydbname.db')
 
 cursor = connection.cursor()
