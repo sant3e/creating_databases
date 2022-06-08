@@ -8,7 +8,6 @@
 
 # this code just connects to an already existant db (assume we created it in GUi which is easier)
 import mysql.connector as mysql
-import csv    # only if you import from csvs
 
 # connection to DB configuration using a function
 def connect(db_name):
@@ -34,14 +33,6 @@ def add_new_values():
 	id = cursor.xxxx    # don't have the code for this yet, i need to pull the id values from another table
 	table_data_multiple_entries = [(id, 'Value12', 'Value13',...),(id, 'Value22', 'Value23', ...),...]   # a list of multiple tuples
 	cursor.executemany("INSERT into mytablename(col1, col2, ...) VALUES (%s, %s, ...)", table_data_multiple_entries)
-
-# importing records from csv file
-create_query = '''CREATE TABLE mytablename(
-		id INT(10) NOT NULL AUTO_INCREMENT,
-		col2 VARCHAR(255) NOT NULL
-		col3 VARCHAR(255) NOT NULL
-		PRIMARY KEY (id))'''
-cursor.execute("DROP TABLE IF EXISTS mytablename")
 
 if __name__ == '__main__':
 	db = connect("mydbname")
