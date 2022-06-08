@@ -8,6 +8,7 @@
 
 # this code just connects to an already existant db (assume we created it in GUi which is easier)
 import mysql.connector as mysql
+import csv    # only if you import from csvs
 
 # connection to DB configuration using a function
 def connect(db_name):
@@ -16,7 +17,8 @@ def connect(db_name):
 			host='localhost or server address',
 			user='root',
 			password='password',
-			database=db_name)
+			database='db_name',
+			allow_local_infile=True)
 	except Error as e:
 		print(e)
 
@@ -33,15 +35,23 @@ def add_new_values():
 	table_data_multiple_entries = [(id, 'Value12', 'Value13',...),(id, 'Value22', 'Value23', ...),...]   # a list of multiple tuples
 	cursor.executemany("INSERT into mytablename(col1, col2, ...) VALUES (%s, %s, ...)", table_data_multiple_entries)
 
+# importing records from csv file
+create_query = '''CREATE TABLE mytablename(
+		id INT(10) NOT NULL AUTO_INCREMENT,
+		col2 VARCHAR(255) NOT NULL
+		col3 VARCHAR(255) NOT NULL
+		PRIMARY KEY (id))'''
+cursor.execute("DROP TABLE IF EXISTS mytablename")
+
 if __name__ == '__main__':
 	db = connect("mydbname")
 	cursor = db.cursor()
-	db.close()
-	
+		
 	# Checking the records
 	cursor.execute("SELECT * FROM mytablename")
 	print(cursor.fetchall())
-
+	
+	db.close()
 	
 # (if we intended to to create the table within python) for the primary key we need: table1_id INT(n) NOT NULL AUTO_INCREMENT, col2 type2, col3 type3, ..., PRIMARY KEY(table1_id)
 # (if we intended to to create the table within python) for the primary key we need: table2_id INT(n) NOT NULL AUTO_INCREMENT, table1_id INT(n), col3 type4, 
